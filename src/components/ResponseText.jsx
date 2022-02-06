@@ -12,7 +12,18 @@ const textareaStyle = {
 }
 
 
-const ResponseText = () =>{
+const ResponseText = ({data}) =>{
+    let obj = data;
+    
+    let newObj = '{ \n';
+    for(let key in obj) {
+        newObj += '\t'
+        newObj += (typeof obj[key] === "string")? `${key}: "${obj[key]}"` : `${key}: ${obj[key]}`; 
+        if (Object.keys(obj).pop() !== key.toString()) {
+            newObj += ',\n'
+        }
+    }
+    newObj += '\n}';
 
     return(
         <Box>
@@ -25,6 +36,7 @@ const ResponseText = () =>{
                 minRows={4}
                 maxRows={100}
                 disabled="disabled"
+                value={newObj}
             />
 
         </Box>
